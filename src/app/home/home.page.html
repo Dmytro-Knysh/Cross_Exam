@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<ion-content [fullscreen]="true">
+  <app-data-form (formData)="onFormDataReceived($event)"></app-data-form>
+
+  <!-- Відображення даних, отриманих від компонента введення -->
+  <div *ngIf="formData">
+    <h3>Отримані дані:</h3>
+    <p>Ім'я: {{ formData.name }}</p>
+    <p>Вік: {{ formData.age }}</p>
+    <p>Email: {{ formData.email }}</p>
+  </div>
+</ion-content>

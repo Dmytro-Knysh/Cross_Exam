@@ -1,0 +1,7 @@
+{
+  "name": "exam_cross",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

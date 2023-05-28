@@ -1,0 +1,25 @@
+<form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Ім'я:</label>
+    <input type="text" id="name" formControlName="name">
+    <div *ngIf="dataForm.get('name').invalid && (dataForm.get('name').dirty || dataForm.get('name').touched)">
+      <div *ngIf="dataForm.get('name').errors.required">Ім'я є обов'язковим полем.</div>
+    </div>
+  </div>
+  <div>
+    <label for="age">Вік:</label>
+    <input type="number" id="age" formControlName="age">
+    <div *ngIf="dataForm.get('age').invalid && (dataForm.get('age').dirty || dataForm.get('age').touched)">
+      <div *ngIf="dataForm.get('age').errors.required">Вік є обов'язковим полем.</div>
+    </div>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email">
+    <div *ngIf="dataForm.get('email').invalid && (dataForm.get('email').dirty || dataForm.get('email').touched)">
+      <div *ngIf="dataForm.get('email').errors.required">Email є обов'язковим полем.</div>
+      <div *ngIf="dataForm.get('email').errors.email">Введений некоректний Email.</div>
+    </div>
+  </div>
+  <button type="submit" [disabled]="dataForm.invalid">Подати</button>
+</form>

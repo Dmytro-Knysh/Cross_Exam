@@ -15,20 +15,21 @@
       </ion-item>
     </ion-list>    
   </ion-card>
-<ion-content [fullscreen]="true">
-  <app-data-form (formData)="onFormDataReceived($event)"></app-data-form>
-
-  <div *ngIf="matrix">
-    <h3>Матриця:</h3>
-    <table>
+  <ion-content>
+    <table class="matrix">
       <tr *ngFor="let row of matrix">
-        <td *ngFor="let element of row" [style.background-color]="isModified(element) ? 'yellow' : 'white'">
-          {{ element }}
-        </td>
+        <ng-container *ngFor="let element of row">
+          <td [ngClass]="{ 'modified': isModified(element) }">{{ element }}</td>
+        </ng-container>
       </tr>
     </table>
-
-    <h3>Модифіковані елементи:</h3>
-    <p>{{ modifiedElements }}</p>
-  </div>
-</ion-content>
+  
+    <div class="modified-elements">
+      Змінені елементи: {{ modifiedElements }}
+    </div>
+  
+    <app-data-form (matrixData)="onMatrixDataReceived($event)"></app-data-form>
+  </ion-content>
+  
+  
+  

@@ -25,3 +25,15 @@
 #container a {
   text-decoration: none;
 }
+table.matrix {
+  border-collapse: collapse;
+}
+
+table.matrix td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.modified {
+  background-color: yellow;
+}

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CalculationService } from '../service/calculation.service';
+import { NgIf } from '@angular/common';
 
 
 @Component({
@@ -8,14 +9,17 @@ import { CalculationService } from '../service/calculation.service';
   templateUrl: './data-form.component.html',
   styleUrls: ['./data-form.component.scss'],
   standalone:true,
-  imports:[ ReactiveFormsModule]
+  imports:[ ReactiveFormsModule, NgIf,]
 })
 export class DataFormComponent {
+  @Output() matrixData = new EventEmitter<number[][]>();
+
   dataForm: FormGroup;
 
-  @Output() formData: EventEmitter<any> = new EventEmitter();
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private calculationService: CalculationService
+  ) {
     this.dataForm = this.formBuilder.group({
       matrixSize: ['', [Validators.required, Validators.min(1)]],
     });
@@ -26,10 +30,8 @@ export class DataFormComponent {
       return;
     }
 
-    const formData = {
-      matrixSize: this.dataForm.value.matrixSize,
-    };
-
-    this.formData.emit(formData);
+    const N = this.dataForm.value.matrixSize;
+    const matrix = this.calculationService.calculateMatrix(N);
+    this.matrixData.emit(matrix);
   }
 }

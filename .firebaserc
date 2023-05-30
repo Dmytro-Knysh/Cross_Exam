@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "examcrss",
+    "y": "examcrss",
+    "examcrss": "examcrss"
+  },
+  "targets": {
+    "exam-91bd7": {
+      "hosting": {
+        "app": [
+          "exam-91bd7"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

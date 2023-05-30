@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CalculationService } from '../service/calculation.service';
 
 
 @Component({
@@ -8,28 +8,28 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './data-form.component.html',
   styleUrls: ['./data-form.component.scss'],
   standalone:true,
-  imports: [ReactiveFormsModule],
+  imports:[ ReactiveFormsModule]
 })
-export class DataFormComponent implements OnInit {
-  dataForm!: FormGroup;
+export class DataFormComponent {
+  dataForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  @Output() formData: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder) {
     this.dataForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      age: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      matrixSize: ['', [Validators.required, Validators.min(1)]],
     });
   }
-  @Output() formData: EventEmitter<any> = new EventEmitter<any>();
 
   onSubmit() {
-    // Отримання даних з форми
-    const data = this.dataForm.value;
-    
-    // Відправка даних до головного компонента
-    this.formData.emit(data);
+    if (this.dataForm.invalid) {
+      return;
+    }
+
+    const formData = {
+      matrixSize: this.dataForm.value.matrixSize,
+    };
+
+    this.formData.emit(formData);
   }
-  
 }

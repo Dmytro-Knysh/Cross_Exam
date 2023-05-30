@@ -1,13 +1,34 @@
 <app-header></app-header>
 
 <ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-title>Завдання</ion-card-title>
+    <ion-list>
+      <ion-item>
+        <ion-text>
+          Розробити сервіс для вирішення наступної задачі
+          Заповнити матрицю A[N,N] числами, що рівні добутку індексів. Елементи кратні 3 замінити на 43, кратні 7 на 47, кратні і 3 і 7 на 11. 
+         Вивести початкову та  отриману матрицю 
+         та виокремити всі числа, що було замінено за допомогою  окремого кольору
+         
+        </ion-text>
+      </ion-item>
+    </ion-list>    
+  </ion-card>
+<ion-content [fullscreen]="true">
   <app-data-form (formData)="onFormDataReceived($event)"></app-data-form>
 
-  <!-- Відображення даних, отриманих від компонента введення -->
-  <div *ngIf="formData">
-    <h3>Отримані дані:</h3>
-    <p>Ім'я: {{ formData.name }}</p>
-    <p>Вік: {{ formData.age }}</p>
-    <p>Email: {{ formData.email }}</p>
+  <div *ngIf="matrix">
+    <h3>Матриця:</h3>
+    <table>
+      <tr *ngFor="let row of matrix">
+        <td *ngFor="let element of row" [style.background-color]="isModified(element) ? 'yellow' : 'white'">
+          {{ element }}
+        </td>
+      </tr>
+    </table>
+
+    <h3>Модифіковані елементи:</h3>
+    <p>{{ modifiedElements }}</p>
   </div>
 </ion-content>
